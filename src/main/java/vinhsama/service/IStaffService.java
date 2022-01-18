@@ -11,4 +11,7 @@ public interface IStaffService {
     public void delete(long id);
     public Staff findById(long id);
     public Staff findByName (String name);
+    public List<Staff> sortsalary();
+    public List<Staff> sortage();
+
 }

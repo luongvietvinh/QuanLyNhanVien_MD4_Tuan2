@@ -12,6 +12,8 @@ import vinhsama.model.Staff;
 import vinhsama.service.IBranchService;
 import vinhsama.service.IStaffService;
 
+import java.util.List;
+
 @Controller
 public class StaffController {
     @Autowired
@@ -69,7 +71,24 @@ public class StaffController {
     }
     @PostMapping ("/search")
     public ModelAndView searchByName (@RequestParam String search){
-        ModelAndView modelAndView = new ModelAndView("ShowStaff");
+        ModelAndView modelAndView = new ModelAndView("showStaff");
+        modelAndView.addObject("staffs" , staffService.findByName(search));
         return modelAndView;
+    }
+    @GetMapping ("/sortsalary")
+    public ModelAndView sortsalary(){
+        ModelAndView modelAndView = new ModelAndView("showStaff");
+            List<Staff> sortSalary = staffService.sortsalary();
+            modelAndView.addObject("staffs",sortSalary);
+            return modelAndView;
+
+    }
+    @GetMapping ("/sortage")
+    public ModelAndView sortage(){
+        ModelAndView modelAndView = new ModelAndView("showStaff");
+        List<Staff> sortAge = staffService.sortsalary();
+        modelAndView.addObject("staffs",sortAge);
+        return modelAndView;
+
     }
 }

@@ -20,23 +20,28 @@
         <thead>
         <form action="/search" method="post">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" name="search" placeholder="Search by name">
+                <input class="form-control" name="search" placeholder="Search by name">
                 <div class="input-group-append">
                     <button class="btn btn-success" type="submit">Go</button>
                 </div>
+                <div class="input-group-append">
+                   <a href="/staff" class="btn btn-success" >back to Home</a>
+                </div>
             </div>
         </form>
+<!--        <th><button  class="btn btn-success"><a href="/sort">sort salary</a></button></th>-->
+
 
         <tr>
             <th>id</th>
             <th>maNhanVien</th>
             <th>name</th>
-            <th>age</th>
-            <th>salary</th>
+            <th><a th:href="@{/sortage}" onclick="count();">age</a></th>
+            <th><a th:href="@{/sortsalary}" onclick="count();">Salary</a></th>
             <th>lop</th>
-            <label for="buttons-hbox">
-            <th><button  class="btn btn-success" id="buttons-hbox"><a href="/create">create</a></button></th>
-            </label>
+            <label for="123"></label>
+            <th><a href="/create" class="btn btn-warning" id="123">create</a></th>
+
         </tr>
         </thead>
         <tbody>
