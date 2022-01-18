@@ -91,4 +91,10 @@ public class StaffController {
         return modelAndView;
 
     }
+    @GetMapping("/detail")
+    public ModelAndView detailForm(@RequestParam long id){
+        ModelAndView modelAndView = new ModelAndView("detail");
+        modelAndView.addObject("staff", staffService.findById(id));
+        return modelAndView;
+    }
 }

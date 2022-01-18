@@ -48,7 +48,7 @@
         <tr th:each="s,lopp : ${staffs}">
             <td th:text="*{lopp.count}"></td>
             <td th:text="*{s.maNhanVien}"></td>
-            <td th:text="*{s.name}"></td>
+            <td ><a th:href="@{/detail(id=${s.id})}"><p th:text="${s.name}"></p></a></td>
             <td th:text="*{s.age}"></td>
             <td th:text="*{s.salary}"></td>
             <td th:text="*{s.branch.name}"></td>
