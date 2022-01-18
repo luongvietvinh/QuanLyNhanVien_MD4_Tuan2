@@ -29,8 +29,8 @@ public class StaffService implements IStaffService{
         return staffRepo.findById(id).get();
     }
 
-//    @Override
-//    public Staff findByName(String name) {
-//        return staffRepo.;
-//    }
+    @Override
+    public Staff findByName(String name) {
+        return null;
+    }
 }
