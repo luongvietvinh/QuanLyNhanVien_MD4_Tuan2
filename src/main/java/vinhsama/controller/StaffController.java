@@ -1,6 +1,8 @@
 package vinhsama.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +24,10 @@ public class StaffController {
     IStaffService staffService;
 
     @GetMapping("/staff")
-    public ModelAndView findAll(){
+    public ModelAndView findAll(@RequestParam (defaultValue = "0") int page,@RequestParam (defaultValue = "name") String option){
         ModelAndView modelAndView = new ModelAndView("showStaff");
-        modelAndView.addObject("staffs" ,staffService.findAll() );
+        modelAndView.addObject("staff" ,staffService.findAll(PageRequest.of(page,2 , Sort.by(option))) );
+       modelAndView.addObject("option", option);
         return modelAndView;
     }
     @GetMapping ("/create")
@@ -35,10 +38,7 @@ public class StaffController {
         return modelAndView;
     }
     @PostMapping ("/create")
-    public String createStaff(@ModelAttribute (value = "staff") Staff staff ,@RequestParam long idBranch){
-        Branch branch = new Branch();
-        branch.setId(idBranch);
-        staff.setBranch(branch);
+    public String createStaff(@ModelAttribute (value = "staff") Staff staff ){
         staffService.save(staff);
         return "redirect:/staff";
     }
@@ -50,12 +50,8 @@ public class StaffController {
         return modelAndView;
     }
     @PostMapping ("/edit")
-    public String editStaff(@ModelAttribute (value = "staff") Staff staff ,@RequestParam long idBranch){
-        Branch branch = new Branch();
-        branch.setId(idBranch);
-        staff.setBranch(branch);
+    public String editStaff(@ModelAttribute (value = "staff") Staff staff ){
         staffService.save(staff);
-
         return "redirect:/staff";
     }
     @GetMapping ("/delete")
@@ -72,22 +68,22 @@ public class StaffController {
     @PostMapping ("/search")
     public ModelAndView searchByName (@RequestParam String search){
         ModelAndView modelAndView = new ModelAndView("showStaff");
-        modelAndView.addObject("staffs" , staffService.findByName(search));
+        modelAndView.addObject("staff" , staffService.findByName(search));
         return modelAndView;
     }
     @GetMapping ("/sortsalary")
     public ModelAndView sortsalary(){
         ModelAndView modelAndView = new ModelAndView("showStaff");
             List<Staff> sortSalary = staffService.sortsalary();
-            modelAndView.addObject("staffs",sortSalary);
+            modelAndView.addObject("staff",sortSalary);
             return modelAndView;
 
     }
     @GetMapping ("/sortage")
     public ModelAndView sortage(){
         ModelAndView modelAndView = new ModelAndView("showStaff");
-        List<Staff> sortAge = staffService.sortsalary();
-        modelAndView.addObject("staffs",sortAge);
+        List<Staff> sortAge = staffService.sortage();
+        modelAndView.addObject("staff",sortAge);
         return modelAndView;
 
     }

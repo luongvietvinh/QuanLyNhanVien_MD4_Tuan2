@@ -36,12 +36,12 @@
             <th>id</th>
             <th>maNhanVien</th>
             <th>name</th>
-            <th><a th:href="@{/sortage}" onclick="count();">age</a></th>
-            <th><a th:href="@{/sortsalary}" onclick="count();">Salary</a></th>
+            <th>age</th>
+            <th>salary</th>
             <th>lop</th>
-            <label for="123"></label>
+            <label for="123">
             <th><a href="/create" class="btn btn-warning" id="123">create</a></th>
-
+            </label>
         </tr>
         </thead>
         <tbody>
@@ -51,7 +51,7 @@
             <td th:text="*{name}"></td>
             <td th:text="*{age}"></td>
             <td th:text="*{salary}"></td>
-            <td th:text="*{branch}"></td>
+            <td th:text="*{branch.name}"></td>
             <td><button type="button" class="btn btn-warning"><a th:href="@{/edit(id=*{id})}">edit</a></button></td>
             <td><button type="button" class="btn btn-danger"><a th:href="@{/delete(id=*{id})}">delete</a></button></td>
             <td><a href="/staff" class="btn btn-success" >back to Home</a></td>

@@ -23,7 +23,7 @@
                 <td><input th:field="*{name}" placeholder="nhap name"></td>
                 <td><input th:field="*{age}" placeholder="nhap age"></td>
                 <td><input th:field="*{salary}" placeholder="nhap salary"></td>
-                <td>  <select name="idBranch">
+                <td>  <select th:field="*{branch}">
                     <option th:each="b : ${branch}" th:text="${b.name}" th:value="${b.id}"> </option>
                 </select></td>
             </tr>

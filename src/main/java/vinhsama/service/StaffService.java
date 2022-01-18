@@ -1,29 +1,38 @@
 package vinhsama.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import vinhsama.model.Staff;
 import vinhsama.repository.StaffRepo;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
-public class StaffService implements IStaffService{
+public class StaffService implements IStaffService {
     @Autowired
     StaffRepo staffRepo;
+
     @Override
     public List<Staff> findAll() {
         return (List<Staff>) staffRepo.findAll();
     }
 
     @Override
+    public Page<Staff> findAll(Pageable pageable) {
+        return staffRepo.findAll(pageable);
+    }
+
+
+    @Override
     public void save(Staff staff) {
-    staffRepo.save(staff);
+        staffRepo.save(staff);
     }
 
     @Override
     public void delete(long id) {
-    staffRepo.deleteById(id);
+        staffRepo.deleteById(id);
     }
 
     @Override
@@ -32,26 +41,22 @@ public class StaffService implements IStaffService{
     }
 
     @Override
-    public Staff findByName(String name) {
-        for (Staff s : staffRepo.findAll()) {
-            if (s.getName().toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT))) {
-                return s;
-            }
-        }
-        return null;
+    public ArrayList<Staff> findByName(String name){
+      return  staffRepo.findAllByName(name);
     }
 
     @Override
     public List<Staff> sortsalary() {
-            List<Staff> list = findAll();
-            list.sort(Comparator.comparing(Staff::getSalary));
-            return list;
+        List<Staff> list = findAll();
+        list.sort(Comparator.comparing(Staff::getSalary));
+        return list;
     }
+
     @Override
     public List<Staff> sortage() {
-            List<Staff> list = findAll();
-            list.sort(Comparator.comparing(Staff::getAge));
-            return list;
+        List<Staff> list = findAll();
+        list.sort(Comparator.comparing(Staff::getAge));
+        return list;
     }
 
 }
