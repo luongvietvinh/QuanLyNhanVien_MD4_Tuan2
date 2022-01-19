@@ -10,11 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import vinhsama.model.Branch;
 import vinhsama.model.Staff;
 import vinhsama.service.IBranchService;
 import vinhsama.service.IStaffService;
-import vinhsama.validate.Validate;
+import vinhsama.validate.Validate_Name;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,7 +25,7 @@ public class StaffController {
     @Autowired
     IStaffService staffService;
     @Autowired
-    Validate validate;
+    Validate_Name validateName;
 
     @GetMapping("/staff")
     public ModelAndView findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "name") String option) {
@@ -46,7 +45,7 @@ public class StaffController {
 
     @PostMapping("/create")
     public ModelAndView createStaff(@Valid @ModelAttribute(value = "staff") Staff staff, BindingResult bindingResult) {
-        validate.validate(staff, bindingResult); // validate trung ten
+        validateName.validate(staff, bindingResult); // validate trung ten
 
         if (bindingResult.hasFieldErrors()) {
             ModelAndView modelAndView = new ModelAndView("createStaff");
@@ -68,7 +67,7 @@ public class StaffController {
 
     @PostMapping("/edit")
     public ModelAndView editStaff(@Valid @ModelAttribute(value = "staff") Staff staff,BindingResult bindingResult,@RequestParam long id) {
-        validate.validate(staff,bindingResult);
+
         if (bindingResult.hasFieldErrors()){
             ModelAndView modelAndView = new ModelAndView("editStaff");
             modelAndView.addObject("branch", branchService.findAll());
