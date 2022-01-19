@@ -98,8 +98,8 @@
     <div class="container">
         <ul class="pagination">
             <li th:if="${staff.hasPrevious()}" class="page-item"><a class="page-link" th:href="@{/staff(page=${staff.number}-1,option =${option})}">previous</a></li>
-            <li class="page-item"><a class="page-link" href="/staff?page=0">1</a></li>
-            <li class="page-item active"><a class="page-link" href="/staff?page=1">2</a></li>
+            <li class="page-item active"><a class="page-link" href="/staff?page=0">1</a></li>
+            <li class="page-item"><a class="page-link" href="/staff?page=1">2</a></li>
             <li class="page-item"><a class="page-link" href="/staff?page=2">3</a></li>
             <li class="page-item"><a class="page-link" href="staff?page=3">4</a></li>
             <li class="page-item"><a class="page-link" href="staff?page=4">5</a></li>

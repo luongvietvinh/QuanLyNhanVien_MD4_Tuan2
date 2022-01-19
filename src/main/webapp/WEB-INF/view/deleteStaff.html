@@ -26,13 +26,30 @@
         <table class="table table-dark">
             <tbody>
             <tr>
-               <p>ban co muon xoa nhan vien co MaNhanVien:</p>
-                <h2 th:text="*{maNhanVien}"></h2>
-                <p>ten la:</p>
-                <h3 th:text="*{name}"></h3>
+                <th>id</th>
+                <th>maNhanVien</th>
+                <th>name</th>
+                <th>age</th>
+                <th>salary</th>
+                <th>lop</th>
             </tr>
-            <td><button type="submit" class="btn btn-danger">enter Delete</button></td>
-            <td><button type="button" class="btn btn-success"><a href="/staff">Click Back to Home</a></button></td>
+            <p>thong tin nhan vien hu hong</p>
+            <tr>
+                <td th:text="*{id}"></td>
+                <td th:text="*{maNhanVien}"></td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{age}"></td>
+                <td th:text="*{salary}"></td>
+                <td th:text="*{branch.name}"></td>
+            </tr>
+            <tr>
+                <td>  <p style="color: red">
+                    ban co muon xoa nhan vien nay hay khong
+                </p><button type="submit" class="btn btn-danger">click delete</button>
+                    <a href="/staff" class="btn btn-success" >back to Home</a>
+                </td>
+            </tr>
+
 
             </tbody>
         </table>

@@ -14,6 +14,7 @@ import vinhsama.model.Branch;
 import vinhsama.model.Staff;
 import vinhsama.service.IBranchService;
 import vinhsama.service.IStaffService;
+import vinhsama.validate.Validate;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,6 +25,8 @@ public class StaffController {
     IBranchService branchService;
     @Autowired
     IStaffService staffService;
+    @Autowired
+    Validate validate;
 
     @GetMapping("/staff")
     public ModelAndView findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "name") String option) {
@@ -42,16 +45,21 @@ public class StaffController {
     }
 
     @PostMapping("/create")
-    public String createStaff(@Valid @ModelAttribute(value = "staff") Staff staff, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()){
-       return "createStaff";
+    public ModelAndView createStaff(@Valid @ModelAttribute(value = "staff") Staff staff, BindingResult bindingResult) {
+        validate.validate(staff, bindingResult); // validate trung ten
+
+        if (bindingResult.hasFieldErrors()) {
+            ModelAndView modelAndView = new ModelAndView("createStaff");
+            modelAndView.addObject("branch", branchService.findAll());
+            return modelAndView;
         }
         staffService.save(staff);
-        return "redirect:/staff";
+        ModelAndView modelAndView = new ModelAndView("redirect:/staff");
+        return modelAndView;
     }
 
     @GetMapping("/edit")
-    public ModelAndView editform( @RequestParam long id) {
+    public ModelAndView editform(@RequestParam long id) {
         ModelAndView modelAndView = new ModelAndView("editStaff");
         modelAndView.addObject("staff", staffService.findById(id));
         modelAndView.addObject("branch", branchService.findAll());
@@ -59,9 +67,16 @@ public class StaffController {
     }
 
     @PostMapping("/edit")
-    public String editStaff(@ModelAttribute(value = "staff") Staff staff) {
+    public ModelAndView editStaff(@Valid @ModelAttribute(value = "staff") Staff staff,BindingResult bindingResult,@RequestParam long id) {
+        validate.validate(staff,bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            ModelAndView modelAndView = new ModelAndView("editStaff");
+            modelAndView.addObject("branch", branchService.findAll());
+            return modelAndView;
+        }
         staffService.save(staff);
-        return "redirect:/staff";
+        ModelAndView modelAndView = new ModelAndView("redirect:/staff");
+        return modelAndView;
     }
 
     @GetMapping("/delete")
