@@ -15,19 +15,33 @@
 <div class="container">
     <h2>tao nhan vien hu hong</h2>
     <p></p>
-    <form  method="post" th:object="${staff}">
-        <table class="table table-dark">
+    <form action="/create" method="post" th:object="${staff}">
+        <table class="table table-pink">
             <tbody>
             <tr>
                 <td><input th:field="*{maNhanVien}" placeholder="nhap ma nhan vien"></td>
                 <td><input th:field="*{name}" placeholder="nhap name"></td>
                 <td><input th:field="*{age}" placeholder="nhap age"></td>
                 <td><input th:field="*{salary}" placeholder="nhap salary"></td>
-                <td>  <select th:field="*{branch}">
-                    <option th:each="b : ${branch}" th:text="${b.name}" th:value="${b.id}"> </option>
+                <td><select th:field="*{branch}">
+                    <option th:each="b : ${branch}" th:text="${b.name}" th:value="${b.id}"></option>
                 </select></td>
             </tr>
-            <td><button type="submit" class="btn btn-success">create</button></td>
+            <tr>
+                <td style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+                <td style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></td>
+
+            </tr>
+
+
+            <td>
+                <button type="submit" class="btn btn-success">create</button>
+            </td>
+            <td>
+                <div class="input-group-append">
+                    <a href="/staff" class="btn btn-success" >back to Home</a>
+                </div>
+            </td>
 
 
             </tbody>

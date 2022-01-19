@@ -1,6 +1,10 @@
 package vinhsama.model;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 public class Staff {
@@ -10,8 +14,13 @@ public class Staff {
     private long id;
 
     private String maNhanVien;
+    @NotEmpty(message = "ten khong duoc de trong")
+    @Size(min = 3, max = 8, message = "toi thieu 2 ky tu , toi da 8 ky tu")
     private String name;
+   @Min(value = 18,message = "tuoi phai lon hon 18")
+   @Max(value = 35,message = "tuoi phai  nho hon 35")
     private int age;
+   @NumberFormat(pattern = "45,000")
     private double salary;
 
     @ManyToOne
